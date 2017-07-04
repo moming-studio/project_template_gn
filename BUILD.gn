@@ -6,12 +6,12 @@
 # in the file PATENTS.  All contributing project authors may
 # be found in the AUTHORS file in the root of the source tree.
 
-import("webrtc.gni")
+import("webrtc/webrtc.gni")
 
 group("default") {
   testonly = true
   deps = [
-    #"//webrtc",
+    "//webrtc",
     #"//webrtc/examples",
     #"//webrtc/tools",
   ]
