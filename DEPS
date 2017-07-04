@@ -9,24 +9,84 @@ vars = {
 deps = {
   # TODO(kjellander): Move this to be Android-only once the libevent dependency
   # in base/third_party/libevent is solved.
-  'src/base':
-    Var('chromium_git') + '/chromium/src/base' + '@' + '9d97c4401546953493165316699d12c7561e3247',
   'src/build':
     Var('chromium_git') + '/chromium/src/build' + '@' + 'e9a431763efcffd2b1c211badf304e2603c1d980',
   'src/buildtools':
     Var('chromium_git') + '/chromium/buildtools.git' + '@' + '1dcd1bdbe93467531a50b60dbd18860803ca7be1',
-  'src/testing':
-    Var('chromium_git') + '/chromium/src/testing' + '@' + '86da9bf8b52f486ab4bcb62cdb9de906c7a846a7',
-  'src/third_party':
-    Var('chromium_git') + '/chromium/src/third_party' + '@' + 'f72956cf4fd72ffe061cca382808d20864b47718',
-  'src/third_party/boringssl/src':
-   Var('boringssl_git') + '/boringssl.git' + '@' +  Var('boringssl_revision'),
 }
 deps_os = {
 }
 pre_deps_hooks = [
 ]
 hooks = [
+# Pull GN binaries.
+  {
+    'name': 'gn_win',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage',
+                '--no_resume',
+                '--platform=win32',
+                '--no_auth',
+                '--bucket', 'chromium-gn',
+                '-s', 'src/buildtools/win/gn.exe.sha1',
+    ],
+  },
+  {
+    'name': 'gn_mac',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage',
+                '--no_resume',
+                '--platform=darwin',
+                '--no_auth',
+                '--bucket', 'chromium-gn',
+                '-s', 'src/buildtools/mac/gn.sha1',
+    ],
+  },
+  {
+    'name': 'gn_linux64',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage',
+                '--no_resume',
+                '--platform=linux*',
+                '--no_auth',
+                '--bucket', 'chromium-gn',
+                '-s', 'src/buildtools/linux64/gn.sha1',
+    ],
+  },
+  # Pull clang-format binaries using checked-in hashes.
+  {
+    'name': 'clang_format_win',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage',
+                '--no_resume',
+                '--platform=win32',
+                '--no_auth',
+                '--bucket', 'chromium-clang-format',
+                '-s', 'src/buildtools/win/clang-format.exe.sha1',
+    ],
+  },
+  {
+    'name': 'clang_format_mac',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage',
+                '--no_resume',
+                '--platform=darwin',
+                '--no_auth',
+                '--bucket', 'chromium-clang-format',
+                '-s', 'src/buildtools/mac/clang-format.sha1',
+    ],
+  },
+  {
+    'name': 'clang_format_linux',
+    'pattern': '.',
+    'action': [ 'download_from_google_storage',
+                '--no_resume',
+                '--platform=linux*',
+                '--no_auth',
+                '--bucket', 'chromium-clang-format',
+                '-s', 'src/buildtools/linux64/clang-format.sha1',
+    ],
+  },
 ]
 recursedeps = [
 ]
