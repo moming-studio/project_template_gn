@@ -13,6 +13,8 @@ deps = {
     Var('chromium_git') + '/chromium/src/build' + '@' + 'e9a431763efcffd2b1c211badf304e2603c1d980',
   'src/buildtools':
     Var('chromium_git') + '/chromium/buildtools.git' + '@' + '1dcd1bdbe93467531a50b60dbd18860803ca7be1',
+  'src/testing':
+    Var('chromium_git') + '/chromium/src/testing' + '@' + '3a078c38c15a31e817cb4be0ca9863ae007501ab',
 }
 deps_os = {
 }
